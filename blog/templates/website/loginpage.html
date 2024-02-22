@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	</head>
+	<body>
+		<div class="login_block">
+			<img src="{% static 'images/login.png' %}">
+			
+			<a href="{% url 'website:index' %}">Index</a>
+			
+			<form method="post" action="user/">
+				{% csrf_token %}
+			
+				{% if error %}
+					<p style="text-align:center;">{{ error }}</p>
+				{% endif %}
+			
+				<label for="username">Insert your username bellow</label> <br><br>
+				<input type="textarea" name="username" placeholder="Put your username here"> <br><br>
+				
+				<label for="password">Put your password below</label> <br><br>
+				<input type="password" name="password" placeholder="Put your password here"> <br><br>
+				
+				<input type="submit" value="Login" class="btn">
+			</form>
+		</div>
+	</body>
+</html>

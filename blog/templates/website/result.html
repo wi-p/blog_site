@@ -1,0 +1,14 @@
+{% extends 'website/base.html' %}
+
+{% block content_space %}
+	<h3 class="title">Showing results</h3>
+	{% if pubs %}
+		{% for pub in pubs %}
+			<div class="pubs">
+				<a href="{% url 'website:pubpage' pub.slug %}"><h3>{{pub.title}}</h3></a>
+				
+				{{pub.text|truncatechars:250}}
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

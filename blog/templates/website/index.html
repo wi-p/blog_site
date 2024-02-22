@@ -1,0 +1,18 @@
+<!DOCUMENT html>
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content_space %}
+	{% if newpubs %}
+		{% for pub in newpubs %}
+			<a href="{% url 'website:pubpage' pub.slug %}">
+				<div class="pubs">
+					<h3>{{pub.title}}</h3>
+					<span class="pub_infos"><a href="">{{pub.writter}}</a><br>{{pub.date}}</span><br><br>
+				
+					{{ pub.text|truncatechars:250 }}
+				</div>
+			</a>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

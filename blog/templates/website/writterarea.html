@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+		<style>
+			header{
+				height:50px;
+				color:white;
+			}
+			
+			#pubs_div{
+				width:30%;
+				height:100%;
+				border-right: 1px solid;
+				background-color:rgba(200,200,200,0.5);
+				display:inline;
+				float:left;
+			}
+			
+			#form_div{
+				width:65%;
+				margin: 0 2% 0 1%;
+				background-color:rgba(255,255,0,0.1);
+				float:right;
+			}
+			
+			a{
+				text-decoration:none;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<p>Hello, {{ request.user.username }} </p>
+		</header>
+		
+		<div id='pubs_div'>
+			{% if user.is_authenticated %}
+				<h1>You are authenticated and logged in</h1>
+			{% else %}
+				<h1>You aren't authenticated and not logged in. Try again</h1>
+			{% endif %}
+			
+			<h3 class='title'>My Pubs</h3>
+			{% if pubs %}
+				<form>
+					What to do: <select name='whatdo'>
+						<option value='delete'>Delete the selected pubs</option>					
+					</select> 
+					<input type='submit' value='Go'><br><br>
+					
+					{% for pub in pubs %}
+						<input type='checkbox' id='{{ pub.title }}' name='pubs' value='{{ pub.title }}'>
+						<a href=''>{{ pub.title }}</a><br><br>
+					{% endfor %}
+				</form>
+			{% endif %}
+		</div>
+		
+		<div id='form_div'>
+			<h3 class='title'>Add New Pub</h3>
+			
+			<form method='post' action='postpub/'>
+				{% csrf_token %}
+			
+				<label for='title'>Title: </label>
+				<input type='text' name='title'><br><br>
+				
+				<label for='date'>Date: </label>
+				<input type='date' name='date'><br><br>
+				
+				<label for='image'>Photo: </label>
+				<input type='file' name='image'><br><br>
+				
+				<input type='hidden' name='writter' value='{{ request.user.username }}'>
+				
+				<label for='text'>Content: </label><br>
+				<textarea cols='100' rows='20'></textarea><br><br>
+				
+				<input type='submit' value='Submit' class='btn'>
+				
+				
+			</form>
+			
+		
+		</div>
+		
+	</body>
+</html>

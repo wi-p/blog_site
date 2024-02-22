@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	</head>
+	<body>
+		<header>
+			<a href="{% url 'writterarea' %}">Come back</a>
+		</header>
+		
+		<div class="update_div">
+			<form method='post' action="{% url 'website:updatepub' pub_id %}">
+				{% csrf_token %}
+				{{ form.errors }}
+				{{ form.as_p }}
+				
+				<input type='submit' value='ok' class="btn" height="50px"> 
+			</form>
+		</div>
+	</body>
+</html>

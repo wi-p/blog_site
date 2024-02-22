@@ -1,0 +1,88 @@
+<!DOCUMENT html>
+{% load static %}
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+		<script>
+  	$(document).ready(function() {
+
+	var docHeight = $(window).height();
+	var footerHeight = $('#footer').height();
+	var footerTop = $('#footer').position().top + footerHeight;
+
+	if (footerTop < docHeight) {
+    	$('#footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
+	}
+  });
+ 
+		</script>
+	</head>
+	
+	<body>
+		<header>
+			<a href="{% url 'website:index' %}"><h2 class="title">Economics and Society</h2></a>
+			
+			<a href="{% url 'website:aboutuspage' %}">ABOUT US</a>
+			<a href="{% url 'website:index' %}">INDEX</a>
+		</header>
+		
+		<div id="bodydiv">
+			<div id="bar_menu">
+				<div id="search_part">
+					<form action="{% url 'website:resultpage' %}" method="post">
+						{% csrf_token %}
+						<label for="search">Search</label>
+						<input type="text" name="search" placeholder="Type here">
+					</form>
+				</div>
+				
+				<div class="iframe_block">
+					<h3>Most viewed pubs</h3>
+					
+					{% if mv_pubs %}
+						<ul>
+							{% for pub in mv_pubs %}
+								<li><a href="{% url 'website:pubpage' pub.slug %}">{{ pub.title }}</a></li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+				
+				<div class="iframe_block">
+					<h3>The writters</h3>
+					
+					{% if writters %}
+						<ul>
+							{% for writter in writters %}
+								<li><a href="{% url 'website:writterpage' writter.slug %}">{{ writter.name }}</a></li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+				
+				<div class="iframe_block">
+					<h3>Most recent pubs</h3>
+					
+					{% if mr_pubs %}
+						<ul>
+							{% for pub in mr_pubs %}
+								<li><a href="{% url 'website:pubpage' pub.slug %}">{{ pub.title }}</a></li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+			</div>
+			
+			<div id="content_space">
+				{% block content_space %}
+				{% endblock %}
+			</div>
+		</div>
+		
+		<footer>
+			<h3>Economics and Society </h3>
+			<h5>All rights reserved</h5>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content_space %}
+	<h3 class="title">{{pub.title}}</h3>
+	
+	<div class="pub_infos">
+		<a href="">{{pub.writter}}</a><br> {{pub.date}} <br> {{pub.view_number}} <br><br><br></span>
+	</div>
+	
+	<div id="pub_image">
+		<figure>
+			<img src="{{MEDIA_URL}}{{pub.photo}}" style="height:30%; width:80%;">
+			
+			<figcaption>{{ MEDIA_URL }}{{ pub.photo }}</figcaption>
+		</figure>
+		
+	</div>	
+
+	
+	{{pub.text}}
+{% endblock %}
